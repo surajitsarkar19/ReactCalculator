@@ -10,17 +10,33 @@ import InputButton from './InputButton';
 
 // Define the input buttons that will be displayed in the calculator.
 const inputButtons = [
+    ['C',null,null,'CE'],
     [1, 2, 3, '/'],
     [4, 5, 6, '*'],
     [7, 8, 9, '-'],
     [0, '.', '=', '+']
 ];
 
+const initialState = {
+  previousInputValue: 0,
+  inputValue: 0,
+  selectedSymbol: null,
+  isDecimal:false
+};
+
 export default class ReactCalculator extends Component {
+
+  constructor(props){
+    super(props);
+    this.state = initialState;
+  }
+
   render() {
     return (
       <View style={Style.rootContainer}>
-          <View style={Style.displayContainer}></View>
+          <View style={Style.displayContainer}>
+            <Text style={Style.displayText}>{this.state.inputValue}</Text>
+          </View>
           <View style={Style.inputContainer}>
             {this._renderInputButtons()}
           </View>
@@ -43,7 +59,11 @@ export default class ReactCalculator extends Component {
                 let input = row[i];
 
                 inputRow.push(
-                    <InputButton value={input} key={r + "-" + i} />
+                    <InputButton
+                      value={input}
+                      highlight={this.state.selectedSymbol === input}
+                      key={r + "-" + i}
+                      onPress= {()=>this._onInputButtonPressed(input)} />
                 );
             }
 
@@ -51,6 +71,80 @@ export default class ReactCalculator extends Component {
         }
 
         return views;
+    }
+
+    _onInputButtonPressed(input) {
+        switch (typeof input) {
+            case 'number':
+                return this._handleNumberInput(input)
+            case 'string':
+                return this._handleStringInput(input)
+        }
+    }
+
+    _handleNumberInput(num) {
+      let inputValue=0;
+        if(this.state.isDecimal){
+          inputValue = eval(this.state.inputValue + this.state.selectedSymbol + num);
+          this.setState({
+              isDecimal: false,
+              selectedSymbol: null
+          })
+        } else{
+          inputValue = this.state.inputValue * 10 + num;
+        }
+
+        this.setState({
+            inputValue: inputValue
+        });
+    }
+
+    _handleStringInput(str) {
+        switch (str) {
+            case '/':
+            case '*':
+            case '+':
+            case '-':
+                this.setState({
+                    selectedSymbol: str,
+                    previousInputValue: this.state.inputValue,
+                    inputValue: 0
+                });
+                break;
+            case '.':
+              this.setState({
+                  isDecimal: true,
+                  selectedSymbol: str
+              })
+              break;
+            case '=':
+                let symbol = this.state.selectedSymbol,
+                    inputValue = this.state.inputValue,
+                    previousInputValue = this.state.previousInputValue;
+
+                if (!symbol) {
+                    return;//if any operator is not selected then return
+                }
+
+                this.setState({
+                    previousInputValue: 0,
+                    inputValue: eval(previousInputValue + symbol + inputValue),
+                    selectedSymbol: null
+                });
+                break;
+            case 'CE':
+              this.clearAll();
+              break;
+            case 'C':
+              this.setState({
+                  inputValue: 0
+              });
+              break;
+        }
+    }
+
+    clearAll(){
+      this.setState(initialState);
     }
 }
 
