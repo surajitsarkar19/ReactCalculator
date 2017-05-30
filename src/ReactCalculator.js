@@ -85,10 +85,9 @@ export default class ReactCalculator extends Component {
     _handleNumberInput(num) {
       let inputValue=0;
         if(this.state.isDecimal){
-          inputValue = eval(this.state.inputValue + this.state.selectedSymbol + num);
+          inputValue = eval(this.state.inputValue + '.' + num);
           this.setState({
-              isDecimal: false,
-              selectedSymbol: null
+              isDecimal: false
           })
         } else{
           inputValue = this.state.inputValue * 10 + num;
@@ -113,8 +112,7 @@ export default class ReactCalculator extends Component {
                 break;
             case '.':
               this.setState({
-                  isDecimal: true,
-                  selectedSymbol: str
+                  isDecimal: true
               })
               break;
             case '=':
