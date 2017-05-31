@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import Style from './style'
 import InputButton from './InputButton';
+import ToastModule from '../lib/ToastModule'
 
 // Define the input buttons that will be displayed in the calculator.
 const inputButtons = [
@@ -116,6 +117,7 @@ export default class ReactCalculator extends Component {
               })
               break;
             case '=':
+            ToastModule.show("Sample toast from native",ToastModule.LONG);
                 let symbol = this.state.selectedSymbol,
                     inputValue = this.state.inputValue,
                     previousInputValue = this.state.previousInputValue;

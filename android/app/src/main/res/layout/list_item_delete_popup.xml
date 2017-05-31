@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#80000000"
+    android:alpha=".99"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:orientation="vertical">
+
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_view"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:layout_margin="10dp"
+            android:elevation="20dp"
+            app:cardCornerRadius="5dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:background="#fff"
+                android:layout_height="wrap_content">
+
+
+
+            <RelativeLayout
+        android:id="@+id/rel1"
+        android:layout_width="match_parent"
+
+      
+        android:layout_height="wrap_content">
+
+
+       <TextView
+           android:id="@+id/txt_heading"
+           android:layout_width="wrap_content"
+           android:textSize="20dp"
+           android:layout_margin="7dp"
+           android:text="Delete?"
+           android:layout_centerVertical="true"
+
+           android:textColor="@color/primaryColor"
+           android:layout_height="wrap_content" />
+                
+                
+
+    </RelativeLayout>
+                
+                
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_below="@+id/rel1"
+                    android:layout_margin="5dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/relativeLayout">
+
+                    <ProgressBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/progressBar"
+                        android:layout_centerHorizontal="true"
+
+                        android:layout_centerInParent="true"
+                        android:layout_marginRight="195dp"
+                        android:layout_marginEnd="195dp"
+                        android:visibility="gone"/>
+
+
+                    <TextView
+                        android:id="@+id/cancel"
+                        android:layout_width="wrap_content"
+                        android:text="Ok"
+                        android:padding="15dp"
+                        android:textColor="@color/primaryColor"
+                        android:background="@drawable/white_ripple"
+                        android:textSize="17dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/no"
+                        android:layout_width="wrap_content"
+                        android:text="Cancel"
+                        android:textColor="@color/primaryColor"
+                        android:textSize="17dp"
+                        android:background="@drawable/white_ripple"
+                        android:padding="15dp"
+                        android:layout_toLeftOf="@+id/cancel"
+                        android:layout_height="wrap_content" />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+
+
+</RelativeLayout>
