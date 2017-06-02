@@ -91,7 +91,7 @@ public class ToastModule extends ReactContextBaseJavaModule {
     }
 
     public PopupWindow showPopupWindow(Context context,
-                  ReactMethod                     String dialogText,
+                                       String dialogText,
                                        String positiveString, String negativeString,
                                        View.OnClickListener positiveCallback,
                                        View.OnClickListener negativeCallback){
