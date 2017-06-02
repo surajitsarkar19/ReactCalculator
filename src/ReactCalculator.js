@@ -117,7 +117,7 @@ export default class ReactCalculator extends Component {
               })
               break;
             case '=':
-            ToastModule.show("Sample toast from native",ToastModule.LONG);
+                this.showToast();
                 let symbol = this.state.selectedSymbol,
                     inputValue = this.state.inputValue,
                     previousInputValue = this.state.previousInputValue;
@@ -145,6 +145,15 @@ export default class ReactCalculator extends Component {
 
     clearAll(){
       this.setState(initialState);
+    }
+
+    showToast(){
+      //ToastModule.show("Sample toast from native",ToastModule.LONG);
+      ToastModule.showPopupMessage(
+        "ddddddxxxxxxxxxx",
+        ()=>ToastModule.show("OK click",ToastModule.LONG),
+        ()=>ToastModule.show("Cancel click",ToastModule.LONG)
+      );
     }
 }
 

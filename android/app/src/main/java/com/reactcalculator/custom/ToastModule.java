@@ -63,27 +63,35 @@ public class ToastModule extends ReactContextBaseJavaModule {
         show(message, Toast.LENGTH_SHORT);
     }*/
 
+    @ReactMethod
     public void showPopupMessage(String dialogText, final Callback onCallback, final Callback cancelCallback){
         if(popupWindow!=null){
             return;
         }
-        popupWindow = showPopupWindow(getReactApplicationContext(), dialogText, "OK", "Cancel", new View.OnClickListener() {
+        popupWindow = showPopupWindow(getCurrentActivity(), dialogText, "OK", "Cancel", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         onCallback.invoke();
+                        popupWindow.dismiss();
                     }
                 },
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        popupWindow.dismiss();
                         cancelCallback.invoke();
+                        popupWindow.dismiss();
                     }
                 });
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                popupWindow = null;
+            }
+        });
     }
 
     public PopupWindow showPopupWindow(Context context,
-                                       String dialogText,
+                  ReactMethod                     String dialogText,
                                        String positiveString, String negativeString,
                                        View.OnClickListener positiveCallback,
                                        View.OnClickListener negativeCallback){
